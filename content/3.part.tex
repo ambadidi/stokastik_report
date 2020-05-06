@@ -1,0 +1,69 @@
+\section{Illustration de la méthode du rejet}
+
+\begin{itemize}
+    \item Un exemple avec une densité à support compact
+    \item  Un exemple avec une densité à support non compact
+\end{itemize}
+Loi de $X$ de densité $f$ à support non compact.\\
+\uppercase{Idée :}
+\begin{itemize}
+    \item trouver $a$ et $g$ (densité) tels que $f(x)\leq ag(x)$
+    \item $g$ est la densité d'une $v.a.$ qu'on sait simuler.
+\end{itemize}
+
+\begin{example}
+    simuler une $v.a. \sim \mathcal{N}(0,1) (f(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2})$
+    $$f(x)\leq\underbrace{\sqrt{\frac{2e}{\pi}}}_\text{=a} \times
+    \underbrace{\frac{1}{2}e^{-|x|}}_\text{=g(x)} \text{   } (\forall x)$$
+    où $g(x)$ est la densité d’une $v.a.$ suivant la loi de Laplace.
+    ($G$ est sa fonction de répartition.)
+\end{example}
+
+Algorithme :
+\begin{enumerate}
+    \item $X=G^{-1}(U_1), Y=a\times g(X)\times U_{2}$
+    \item si $Y\leq f(X)$, $X$ accepté, sinon rejeté
+\end{enumerate}
+La $v.a.$
+$-sgn(U)\log(1-2|U|) \text{  où  } U\sim\mathcal{U}([-0.5,0.5])$
+suit une loi de Laplace.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\iffalse
+
+\subsection{Subsection 1}
+
+Cras commodo, elit at fermentum tincidunt, velit urna feugiat leo, in varius est magna in lectus. Curabitur sodales, libero et dapibus placerat, dolor arcu egestas lectus, accumsan mattis orci ante et est. Etiam maximus maximus ante vitae elementum. Praesent volutpat mauris eget sapien pretium, a consequat mi mattis. Phasellus ac lobortis odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat. Vestibulum tincidunt tristique semper.
+
+Nullam faucibus eu risus nec accumsan. In vitae augue rhoncus, iaculis nunc non, dapibus massa. In laoreet quis ante ac porta. Morbi eget lorem scelerisque, accumsan felis sit amet, cursus nisl. Etiam vitae orci tristique, sollicitudin odio in, varius metus. Nullam massa risus, molestie eget dictum mattis, placerat vel risus. Aenean consequat tristique libero ac rutrum. Integer fringilla facilisis felis, non accumsan erat accumsan a. Nunc vitae lorem id ligula dapibus convallis at ut nisl. Mauris consectetur urna quam, nec egestas erat suscipit in.
+
+\subsection{Subsection 2}
+
+Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec et maximus dui. Proin bibendum dolor turpis, nec eleifend purus pharetra in. Cras mattis, nisl sit amet varius suscipit, dolor eros imperdiet risus, et blandit arcu tellus eget nunc. Vivamus eu nibh vitae lectus tristique ullamcorper quis in odio. Sed non enim sit amet lacus porta tincidunt. Ut eget facilisis eros, et eleifend nisl. In tincidunt mattis tellus in varius. Sed felis eros, sollicitudin eget purus ultrices, tempor malesuada est. Ut egestas erat et velit tempor viverra. Aenean quis imperdiet nisi. Aliquam varius vestibulum nibh sit amet euismod. Duis massa lectus, efficitur vitae porttitor id, sodales nec quam. Suspendisse aliquet mattis metus, ac dignissim nulla ultricies in. Nulla a commodo orci.
+
+Mauris vitae libero odio. Praesent nec eros sem. Ut aliquet vestibulum lorem ac venenatis. Maecenas feugiat, est at suscipit luctus, velit purus laoreet mauris, eu pharetra eros neque a lacus. Duis cursus quis purus ac accumsan. Praesent ullamcorper porta libero, quis ultrices enim porttitor sollicitudin. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas non euismod purus, ac suscipit nibh. Donec in massa aliquet, vestibulum libero eu, fermentum sapien. Mauris consequat imperdiet eros ut elementum. Nulla euismod, enim id malesuada gravida, purus lectus imperdiet nibh, sit amet ullamcorper metus nunc nec nulla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris eu mauris sit amet diam suscipit venenatis. Vestibulum ut leo ac metus fermentum porttitor. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+
+\subsection{Subsection 3}
+
+Proin gravida eros id faucibus sollicitudin. Vivamus molestie, nisi nec blandit viverra, eros arcu porttitor nibh, a vestibulum est urna ut mi. Donec vel nisl vitae odio ullamcorper tempor eu eu libero. Nullam sem nisi, varius ut nunc vel, luctus cursus dui. Proin cursus euismod sem tincidunt dignissim. Suspendisse volutpat arcu eu scelerisque facilisis. Donec id ultricies sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+
+Donec at elit vehicula, varius nisl ac, malesuada ante. Mauris ut iaculis enim. Quisque faucibus nibh id dui hendrerit sagittis. Suspendisse non mauris a purus aliquet iaculis. Aliquam erat volutpat. Vestibulum augue sem, pretium quis dapibus sit amet, pretium sed urna. Donec at lectus dui. Ut imperdiet augue eget odio vehicula ullamcorper. Maecenas sed enim quis nunc porttitor eleifend. Aenean et mollis nibh. Integer id posuere odio. Sed et porttitor metus, a semper mi. Mauris egestas odio in posuere mollis. Praesent pellentesque, dolor nec aliquam dictum, ex lectus cursus sapien, vehicula ornare urna ipsum non massa.
+
+\subsection{Subsection 4}
+
+Quisque ut risus neque. Praesent iaculis finibus porttitor. Sed rutrum diam eget gravida imperdiet. Sed at ex velit. Ut ut dictum sem. Pellentesque a tincidunt lorem. Sed tincidunt metus nec auctor semper. Phasellus vestibulum auctor justo a pretium. Nam eu tincidunt dui, at scelerisque ante. Phasellus dapibus lacus at tempus pellentesque.
+
+Vivamus mattis porta mi iaculis sagittis. Aenean sit amet rutrum nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque quis libero imperdiet, consectetur felis sed, venenatis augue. Nulla tempor rutrum viverra. Proin non dictum urna. Mauris mattis finibus neque, quis tincidunt libero vulputate eu. Praesent lobortis fermentum faucibus. Donec eget neque eu enim aliquam mattis. Praesent a eleifend ante. Suspendisse auctor enim sit amet malesuada malesuada. Aenean molestie lacus sed velit ornare malesuada. Nam sagittis pretium interdum.
+\fi

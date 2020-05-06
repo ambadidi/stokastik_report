@@ -1,0 +1,93 @@
+\documentclass[a4paper,32pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage[main=french]{babel}
+\usepackage{mathptmx}
+\usepackage[32pt]{moresize}
+\usepackage{anyfontsize}
+\usepackage{t1enc}
+\usepackage{mathrsfs}
+\usepackage{boldline,multirow,tabularx,colortbl,diagbox,makecell,fancybox}
+\usepackage{dsfont}
+\usepackage{mathtools}
+\usepackage{amsfonts,amssymb,amsmath,mathrsfs,array,stmaryrd}
+\usepackage{amsthm}
+\usepackage{pgf,tikz,xcolor}
+\usepackage{caption}
+\usepackage[rightcaption]{sidecap}
+\usepackage{listings}
+\newcommand{\mc}[3]{\multicolumn{#1}{#2}{#3}}
+\usetikzlibrary{calc,positioning,shapes.geometric,shapes.symbols,shapes.misc, fit, shapes, arrows, arrows.meta}
+\usepackage[top=2.5cm, bottom=2.5cm, left=2.25cm, right=2.25cm]{geometry}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{indentfirst}
+\usepackage{hyperref}
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[section]
+\theoremstyle{remark}
+\newtheorem{remark}{Remarque}
+\theoremstyle{remarkfonda}
+\newtheorem{remarkfonda}{Remarque fondamentale}
+\theoremstyle{interpretation*}
+\newtheorem{interpretation*}{Interprétation}
+\theoremstyle{rappel}
+\newtheorem{rappel}{Rappel}
+\newtheorem{conclusion}{Conclusion}
+\theoremstyle{proposition}
+\newtheorem{proposition}{Proposition}
+\theoremstyle{theorem}
+\newtheorem{theorem}{Théorème}
+\newtheorem{corollary}{Corollaire}
+\newtheorem{lemma}[theorem]{Lemme}
+\theoremstyle{example}
+\newtheorem{example}{Exemple}[section]
+\newenvironment{pruf}[1][Preuve]{\textit{#1:\\}}{\ \rule{0.5em}{0.5em}}
+%\usepackage[svgnames]{xcolor}
+\DeclareMathOperator{\sign}{sign}
+\usepackage{lipsum}
+\usepackage{subfig}
+\usepackage{xspace,color}
+\usepackage{url}
+\usepackage{listings}
+\lstset{commentstyle=\color{red},keywordstyle=\color{black},
+showstringspaces=false}
+\lstnewenvironment{rc}[1][]{\lstset{language=R}}{}
+\newcommand{\ri}[1]{\lstinline{#1}}  %% Short for 'R inline'
+
+\lstset{language=R}             % Set R to default language
+%\lstset{language=R,
+%basicstyle=\scriptsize\ttfamily,
+%commentstyle=\ttfamily\color{gray},
+%numbers=left,
+%numberstyle=\ttfamily\color{gray}\footnotesize,
+%stepnumber=1,
+%numbersep=5pt,
+%backgroundcolor=\color{white},
+%showspaces=false,
+%showstringspaces=false,
+%showtabs=false,
+%frame=single,
+%tabsize=2,
+%captionpos=b,
+%breaklines=true,
+%breakatwhitespace=false,
+%title=\lstname,
+%escapeinside={},
+%keywordstyle={},
+%morekeywords={}
+%}
+
+%==[DO NOT CHANGE ANYTHING HERE]====================
+\input{variables}
+\input{advanced.params/misc.commands}
+\input{advanced.params/titlevars.tex}
+\input{cover/covermain.tex}
+
+\begin{document}
+    \input{content/__all__.tex}
+\end{document}
+%==[DO NOT CHANGE ANYTHING HERE]====================
+
+

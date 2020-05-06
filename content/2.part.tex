@@ -1,0 +1,1023 @@
+\section{Loi d’une variable aléatoire à densité}
+
+\subsection{Variable aléatoire à densité}
+
+\theoremstyle{definition}
+\begin{definition}
+
+    \begin{enumerate}
+        \item Soit $X$ une variable aléatoire. On dit que $X$ \textbf{a une loi de densité $f$}
+        et que $P_{\textbf{X}}$  \textbf{a pour densité} $f$, si pour tout réel $x$,
+\textcolor{blue}{$$F_{\textbf{X}}(x)=\mathbb{P}_{\textbf{X}}(]-\infty,x])=\mathbb{P}(X\leq x)=\int_{-\infty}^{x}f(y)fy.$$}
+       Dans ce cas $$\mathbb{P}(X=x)=0, \mbox{   } \forall x\in \mathbb{R}.$$
+        \item  Une fonction réelle $f$ sur $\mathbb{R}$ est appelée une \textbf{densité de probabilité},
+ou simplement une “densité”, si elle est \textcolor{blue}{positive, intégrable}, et vérifie
+\textcolor{blue}{$$\int_{_\infty}^{+\infty}f(x)dx=1.$$}
+    \end{enumerate}
+\end{definition}
+
+\theoremstyle{remarkfonda}
+\begin{remarkfonda}
+Si $f$ est une densité de probabilité, la fonction $F$ définie par $$F(x)=\int_{-\infty}^{x}f(y)dy$$
+est une fonction qui vérifie les propriétés (\ref{prop:prop1.1}), (\ref{prop:prop1.2}), (\ref{prop:prop1.3}).
+Elle permet donc de définir une unique probabilité $\mu$ sur \mathbb{R}, telle que $$\mu(]-\infty,x])=\int_{-\infty}^{x}f(y)dy.$$
+si $\mu$ est la loi de $X$, alors $\mathbb{P}(X\leq x)=\int_{-\infty}^{x}f(y)dy.$
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=5.5cm]{content/densite.PNG}
+\caption{Graphe de la densité $f$.}
+\end{figure}
+\end{remarkfonda}
+
+\theoremstyle{proposition}
+\begin{proposition}
+\begin{enumerate}
+\item Soit $X$ de loi de densité $f$. La fonction $F_X$ est dérivable en tout point
+$x$ où $f$ est continue, et \textcolor{blue}{$$F'_{X}(x)=f(x).$$}
+\item  Si $F_X$ est dérivable en tout point, alors $X$ a une loi de densité \textcolor{blue}{$$f=F'_{X}.$$}
+\end{enumerate}
+
+\end{proposition}
+
+\begin{pruf}
+Dérivée d’une intégrale fonction de sa borne supérieure.
+\end{pruf}
+
+\theoremstyle{interpretation*}
+\begin{interpretation*}
+si $\Delta x$  est un “petit” accroissement de la quantité $x$, on
+a (si du moins $f$ est continue en $x$):
+$$f(x)\sim\frac{F_X(x+\Delta x)-F_X(x)}{\Delta x}=\frac{\mathbb{P}_X([x,x+\Delta x])}{\Delta x}.$$
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{content/interpretation1.PNG}
+\caption{$f(6)\sim\frac{(F_X(6.5)-F_X(6))}{0.5}$.}
+\end{figure}
+
+\end{interpretation*}
+
+\subsection{Lois usuelles et simulation}
+\subsubsection{Variable aléatoire uniforme}
+\textbullet \textcolor{blue}{Variable aléatoire uniforme sur $[a,b]$, $a < b$}: $X(\Omega)=[a,b]$, et
+\textcolor{red}{$$f(x) = \begin{cases} \frac{1}{b-a} & \mbox{si   } a\leq x\leq b\\
+                                        0 & \mbox{sinon } .\end{cases}$$}
+Autant de chances de tomber au voisinage de chaque point de $[a,b]$.
+
+\begin{example}
+Horaires navette Massy-Ecole Polytechnique : 8h12, 8h20,
+8h26, 8h32.
+\begin{itemize}
+\item L’arrivée du RER suit une variable uniforme sur [8h15,8h30].
+\item Probabilité d’attendre la navette moins de 3 minutes?
+\item Probabilité d’attendre plus de 5 minutes?
+\end{itemize}
+\end{example}
+
+\subsubsection{Simulation d’une variable aléatoire}
+\begin{itemize}
+\item \textbf{But: générer les valeurs d’une variable aléatoire X de
+fonction de répartition F donnée}.
+\item Cas le plus simple:\textcolor{blue}{ simuler les valeurs d’une variable aléatoire $U$
+de loi uniforme sur $[0,1]$}.
+\item On utilise un générateur de nombres pseudo-aléatoires: fonction
+“RANDOM” de l’ordinateur.
+\item Pour simuler $X$, on peut souvent se ramener à la simulation de $U$$,\\
+\textbf{ en utilisant une inversion de la fonction de répartition de } $X$$.
+\end{itemize}
+
+\theoremstyle{theorem}
+\begin{theorem}
+Soit $F$ une fonction vérifiant les propriétés (\ref{prop:prop1.1}), (\ref{prop:prop1.2}), (\ref{prop:prop1.3}).
+Soit $F^{−1} : ]0,1[\rightarrow\mathbb{R}$, l’inverse généralisée de $F$:
+\textcolor{blue}{$$F^1(u)=\min\{x\in\mathbb{R}, F(x)\geq u\},$$}
+alors $X = F^{−1}(U)$ est une variable aléatoire de loi $\mathbb{P}_{\textbf{X}}$ , où $\mathbb{P}_{\textbf{X}$ a pour
+fonction de répartition $F$.
+\end{theorem}
+
+\begin{pruf}
+$$\mathbb{P}(X\leq x)=\mathbb{P}(F^{-1}(U)\leq x)=\mathbb{P}(U\leq F(x))=F(x).$$
+\end{pruf}
+
+\begin{conclusion}
+Pour simuler $X$, on simule $U$ en utilisant $rand$ et on
+calcule son image par $F^{-1}$.
+\end{conclusion}
+
+\begin{example}
+\textcolor{blue}{ $X$ variable aléatoire de Bernoulli de paramètre $p$}.
+\begin{itemize}
+\item Si $U\in[0,1-p[$, on pose $X=0$,
+\item Si $U\in[1-p,1]$, on pose $X=1$.
+\end{itemize}
+\end{example}
+
+\subsubsection{Variable aléatoire exponentielle}
+\theoremstyle{definition}
+\begin{definition}
+X \textbf{suit la loi exponentielle de paramètre} $\lambda>0$ : $X(\Omega)=\mathbb{R}_{+}$ et $\mathbb{P}_X$ admet la loi
+de densité \textcolor{blue}{
+$$f(x) = \begin{cases} 0 & \mbox{si   } x<0\\
+\lambda e^{-\lambda x} & \mbox{sinon } .\end{cases}$$
+}
+On la note \textcolor{blue}{$\mathcal{E}(\lambda)}.$
+\end{definition}
+
+Modélisation d’une durée de vie ou d’un temps d’attente entre
+événements spécifiques:
+\begin{itemize}
+\item durée de vie d’une bactérie
+\item durée d’une conversation téléphonique
+\item temps entre deux tremblements de terre.
+\end{itemize}
+
+\subsubsection{Loi exponentielle sans mémoire}
+$X:\Omega\rightarrow\mathbb{R}_{+}.$\\
+\textbf{Propriété de non-vieillissement}:$$\mathbb{P}(X>t+s|X>t)=\mathbb{P}(X>s)=e^{-\lambda s}.$$
+\begin{example}
+hypothèse naturelle pour modéliser des durées de vie d’atomes
+radioactifs.
+\end{example}
+
+\vskip 1cm
+
+\textbf{Propriété caractéristique}: si $t\rightarrow\rho(t)=\mathb{P}(X>t)$ verifie
+\textcolor{red}{$$\rho(t+s)=\rho(t)\rho(s)$$}
+on a (en dérivant en $s$, avec $s = 0$),
+$$\rho'(t)=-\rho(t)\lambda \quad\mathrm{  avec  }\quad \lambda=-\rho'(0)\geq0.$$
+Ainsi \textcolor{blue}{$\rho(t)=e^{-\lambda t}$ et $f(t)=\lamda e^{-\lambda t}$ (Loi exponentielle)}. ($\rho(0)=1$.)
+\vskip 1cm
+\textbf{Simulation d’une v.a. de loi} $\mathcal{E}(\lambda), \lambda>0$:
+\textcolor{blue}{$$F(x)=\int_{0}^{x}\lambda e^{-\lambda t}dt=1-e^{-\lambda x},\quad\mathrm{  }\quad\forall x\geq0.$$}
+Ainsi, si $u\in[0,1[$,$$F^{-1}(u)=-(1/\lambda)\log(1-u).$$
+On simulera donc une loi uniforme $U$ et on posera \textcolor{red}{$$X=-\frac{1}{\lambda}\log U.$$}
+$X$ est une variable aléatoire de loi $\mathcal{E}(\lambda)$.\\
+En effet, les variables aléatoires $U$ et $1-U$ ont même loi.
+
+\subsubsection{Lois Gamma}
+\theoremstyle{definition}
+\begin{definition}
+$X$ \textbf{suit la loi gamma de paramètres} $\beta,\alpha>0$ si $X(\Omega)=\mathbb{R}_{+}$ et $\mathbb{P}_X$
+admet la loi de densité
+\textcolor{blue}{$$f(x) = \begin{cases} 0 & \mbox{si   } x<0\\ \frac{1}{\Gamma(\alpha)}\beta^{\alpha}x^{\alpha-1}e^{-\beta x} & \mbox{sinon}.\end{cases}$$}
+\end{definition}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{content/gamma.PNG}
+\caption{Densités Gamma.}
+\end{figure}
+
+\subsubsection{Variable aléatoire normale (variable gaussienne)}
+
+\theoremstyle{definition}
+\begin{definition}
+On appelle \textbf{variable aléatoire normale centrée réduite} une variable
+aléatoire $X$ de loi de densité \textcolor{blue}{$$f(x)=\frac{1}{\sqrt{2\pi}}e^{-x^2/2}.$$}
+\end{definition}
+
+\begin{remark}
+$$I=\int_{-\infty}^{+\infty}f(x)dx=1.$$
+En effet \textcolor{blue}{
+\begin{align*}
+I^2 &=\int_{\mathbb{R}}\int_{\mathbb{R}}f(x)f(y)dxdy=\frac{1}{2\pi}\int\int e^{-\frac{(x^2+y^2)}{2}}dxdy\\
+    &=\int_{0}^{2\pi}d\theta\int_{0}^{\infty}\frac{1}{2\pi}e^{-\rho^2/2}\rho d\rho=1.\text{ (passage en polaire)}
+\end{align*}
+}
+$f$ \textbf{n’a pas de primitive évidente}: tables numériques.
+\end{remark}
+
+Pour $m\in\mathbb{R},\sigma>0$, \textbf{une variable normale $Y$ de loi $\mathcal{N}(m,\sigma)$ a pour densité}
+\textcolor{blue}{$$f(y)=\frac{1}{\sqrt{2\pi\sigma^2}}\exp(-\frac{(y-m)^2}{2\sigma^2}).$$}
+\textbf{Distribution normale}:
+\begin{itemize}
+\item taille d’un individu choisi au hasard
+\item composantes de la vitesse d’une molécule de gaz
+\item erreur de mesure d’une quantité physique.
+
+\end{itemize}
+taille d’un individu choisi au hasard
+composantes de la vitesse d’une molécule de gaz
+erreur de mesure d’une quantité physique.
+
+\textcolor{blue}{Approximation de toute somme de variables aléatoires indépendantes
+et de même loi: \textbf{théorème de la limite centrale}.}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=8cm]{content/money.PNG}
+
+\end{figure}
+
+\section{Simuler des variables aléatoires}
+
+\textbf{But} :
+générer une $X$ variable aléatoire à partir d’une
+variable aléatoire uniforme $U \sim \mathcal{U}([0,1])$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%  partie de lecheguer  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% DEBUT %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Simuler le hasard avec un ordinateur}
+
+\textcolor{gray}{De très nombreuses applications: \\}
+Simulations de phénomènes physiques, méthodes de
+Monte-Carlo pour le calcul d'intégrales, étude de tests
+statistiques, simulation de fonctionnement de réseaux,
+cryptographie, imagerie, algorithmes probabilistes, etc. \\
+\vspace{0.5cm}
+
+Pourquoi le terme \textcolor{blue}{SIMULER}? \\
+Parce qu'un ordinateur exécute un algorithme, c'est-à-dire une suite d'opérations parfaitement déterminées.\\
+L'idée est de produire une suite de nombres suffisamment
+imprévisibles qui « imite » une suite $(U_{n})_{n \geq 1}$ de variables aléatoires indépendantes uniformes dans l'intervalle [0,1[.\\
+
+\vspace{1cm}
+
+\begin{Large}
+\colorbox{gray!20}{\textcolor{blue}{Fonction " \textbf{random} " des langages de programmation
+courants}}
+\end{Large}
+
+Elle est basée sur la suite de nombres $(X_{n})_{n \geq 1}$ vérifiant une relation de récurrence
+\[ X_{n+1} = (a X_{n}+ c) \mod M \]
+On prend
+\[ U_{n} = \dfrac{X_{n}}{M} \in [0,1[ \]
+
+Exemple de \textit{Scilab} \emph{(https://www.scilab.org/fr)} : \\
+\[ M = 2^{31} ; \hspace{2mm} a= 843 314 861; \hspace{2mm} c= 453 816 693 \]
+\vspace{2mm}
+Il faut initialiser la suite, c'est-à-dire donner $X_{0}$ (la « graine »,\textit{seed} en anglais)\\
+\vspace{1mm}
+Exemple de \textit{Scilab} : la graine par défaut est 0.\\
+\vspace{1mm}
+Si on ne change pas la graine, on obtient donc toujours la même suite $(U_{n})$. (Pratique pour pouvoir avoir des simulations reproductibles.)\\
+\vspace{1mm}
+On peut automatiser l'initialisation en utilisant l'horloge de l'ordinateur.\\
+\vspace{1mm}
+La suite $(U_{n})$ est périodique : il y a un rang $n_{0}$ tel que $U_{n_{0}} +k = U_{k}$ pour tout $k \geq 1$ (mémoire finie de l'ordinateur).\\
+\vspace{1mm}
+Il faut donc que la période soit plus grande que le nombre de termes de $(U_{n})$ qu'on utilise !\\
+\vspace{1mm}
+Exemple de \textit{Scilab}: $n_{0} = M = 2^{31} \approx 2$ \textit{milliards}. \\
+
+\begin{Large}
+\colorbox{gray!20}{\textcolor{blue}{Conclusion}}
+\end{Large}
+
+\begin{center}
+Un ordinateur génère une suite de nombres {\textcolor{blue}{PSEUDO-ALÉATOIRES} compris entre 0 et 1.}
+\end{center}
+
+La qualité du générateur (c-à-d sa déviation par rapport au hasard parfait) doit être analysée avec un certain nombre de tests statistiques. \\
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Question fondamentale}}
+\end{Large}
+
+On suppose qu'on a un bon générateur de nombre
+pseudo-aléatoires $(U_{n})$.
+
+\begin{center}
+\textit{Comment, à partir d'une suite $(U_{n})$ de variables aléatoires indépendantes et identiquement distribuées selon la loi uniforme sur [0,1], construire une variable aléatoire de loi donnée ?}\\
+\end{center}
+
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Sur les histogrammes}}
+\end{Large}
+
+Un histogramme est un outil d'exploration de données empiriques, typiquement aléatoires.\\
+On répartit les valeurs des données en classes (de largeur identique).\\
+La hauteur de chaque colonne est déterminée par le nombre de valeurs tombant dans la classe correspondante.\\
+On normalise de telle sorte que l'aire totale des colonnes soit égale à 1.\\
+\begin{center}
+\includegraphics[scale=0.6]{content/Figure1.PNG} \\
+\end{center}
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Représentation de lois continues, nombres de colonnes}}
+\end{Large}
+
+\hspace{3mm} Exemple: on tire 10 000 variables gaussiennes centrées réduites.\\
+\includegraphics[scale=0.6]{content/Figure2.PNG} \\
+
+\hspace{3mm} Idéal : prendre nombre de colonnes $\approx \sqrt{nombre \, de \, données}$ \\
+
+\begin{center}
+\begin{Large}
+SIMULATION DES VARIABLES ALÉATOIRES \\
+\end{Large}
+\end{center}
+
+{\textcolor{blue}{But:} Générer une $X$ variable aléatoire à partir d'une variable aléatoire uniforme $U \sim \mathcal{U} [0,1])$. \\
+
+\vspace{1cm}
+
+\begin{center}
+\begin{Large}
+SIMULATION DES VARIABLES ALÉATOIRES DISCRÈTES \\
+\end{Large}
+\end{center}
+
+- Méthodes particulières \\
+- Méthode générale. \\
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Loi de Bernoulli de paramètre $p \in [0,1]$}}
+\end{Large}
+
+\begin{center}
+Si $U \in \mathcal{U} ([0,1])$ alors $X \mathds{1}_{\{U \leq p\}} \sim \mathcal{B} (p)$ \\
+\includegraphics[scale=0.6]{content/Figure3.PNG}
+\end{center}
+En effet: $\mathbb{P} (X = 1) = \mathbb{P} (U \leq p) = \int_{0}^{1} \mathds{1}_{\{u \leq p\}} \mathrm{d}u = p$ \\
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Loi binomiale de paramètre $n \in \mathbb{N}^{*}$ et  $p \in [0,1]$}}
+\end{Large}
+
+\hspace{4mm} Si $U_{1}, ... U_{n}$ sont $n$ v.a. uniformes sur [0,1] dépendantes alors
+\[ X = \mathds{1}_{\{U_{1} \leq p \}} + \dots + \mathds{1}_{\{U_{n} \leq p \}} = \sum \limits_{i=1}^{n} \mathds{1}_{\{U_{i} \leq p\}} \sim \beta (n,p) \]
+En effet, les v.a. $\mathds{1}_{\{U_{i} \leq p\}}$, $1 \leq i \leq n$, sont Bernoulli de paramètre $p$ et indépendantes. \\
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Loi géométrique de paramètre $p \in ]0,1[$}}
+\end{Large}
+
+\hspace{4mm} C'est la loi du temps de 1er succès dans une suite d'expériences aléatoires indépendantes avec probabilité de succès $p$. Donc
+\[ N = \inf \{ i \geq 1: U_{i} \leq p \} \sim \mathcal{G}éo(p) \]
+Défaut : nombre moyen de v.a. uniformes utilisées égal à
+$\mathbb{E} [N] = 1/p$ qui est grand pour des petites valeurs de $p$.\\
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Méthode avec une seule variable aléatoire uniforme}}
+\end{Large}
+
+\hspace{4mm} Si $U \sim \mathcal{U} ([0,1])$ alors $1+E \Big( \dfrac{\ln (U)}{\ln (1-p)} \Big)$ suit la loi géométrique de paramètre $p$. ($E(x)$ est la partie entière : $E(x) \leq x < E(x) + 1$.)\\
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Démonstration}}
+\end{Large}
+\hspace{4mm} Soit $X= 1+ E \Big(\dfrac{\ln (U)}{\ln (1-p)} \Big) $ et $k \in \mathbb{N}^{*}$: \\
+\begin{align*}
+\mathbb{P} (X = k) &= \mathbb{P} \Big( E \Big( \dfrac{\ln (U)}{\ln (1-p)} \Big) = k-1 \Big) \\
+&= \mathbb{P} \Big( k-1 \leq \dfrac{\ln (U)}{\ln (1-p)} < k \Big) \\
+&= \mathbb{P} (k \ln (1-p) < \ln (U) \leq (k-1) \ln (1-p)) \\
+&= \mathbb{P} \big( (1-p)^{k} < U \leq (1-p)^{k-1} \big) \\
+&= (1-p)^{k-1} - (1-p)^{k} \\
+&= (1-p)^{k-1}p
+\end{align*}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{Large}
+SIMULATION DES VARIABLES ALÉATOIRES DISCRÈTES \\
+\end{Large}
+\end{center}
+
+- Méthode par inversion de la fonction de répartition\\
+- Méthodes particulières\\
+- Méthode du rejet. \\
+
+\begin{Large}
+\hspace{2mm} \colorbox{gray!20}{\textcolor{blue}{Préliminaires}}
+\end{Large}
+
+\hspace{4mm} Soit $X$ unev.a. réelle de fonction de répartition $F$ définie par
+\[ F(x) = \mathbb{P} (X \leq x)\]
+$F$ est croissante, continue à droite et limitée à gauche en tout point de $\mathbb{R}$ et que $\underset{x\to - \infty}{\lim} F(x) =1$ \\%(cf. Cours 3, séance 1) \\
+\vspace{1mm}
+Si $X$ a une densité $f$ (c-à-d si $F(x) = \int_{- \infty}^{x} f(y) \mathrm{d}y$), \\
+$F'(x) = f(x)$ en tout point où $f$ est continue. %(cf. Cours 3, séance 2)
+
+\includegraphics[scale=0.6]{content/Figure4.PNG}
+\[ X \sim \mathcal{U} ([0,1/3]) \\
+f(x) = 3 \mathds{1}_{[0,1/3]} (x), \,
+F(x) = \left\{
+\begin{array}{ll}
+0 \hspace{8mm} si x <0 \\
+3x \hspace{7mm} si 0 \leq x < 1/3 \\
+1 \hspace{8mm} si x \geq 1/3
+
+\end{array}
+\right.  \]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%  partie de lecheguer  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% FIN  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Méthode d’inversion de la fonction de répartition}
+
+Si $U \sim \mathcal{U}([0,1])$ et si
+$X$ a pour fonction de répartition $F$ alors $X$ et $F^{−1}(U)$ ont
+même loi.\\
+
+C’est évident si $F$ est continue et strictement croissante sur $\mathbb{R}$
+car elle réalise alors une bijection de $\mathbb{R}$ sur $]0,1[$ et admet donc
+un inverse $F^{−1}: ]0,1[\rightarrow \mathbb{R}$.\\
+
+$Y:=F^{-1}(U)$ a alors la même loi que $X$:
+$$\mathbb{P}(Y\leq x)=\mathbb{P}(F^{-1}(U)\leq x)=\mathbb{P}(U\leq F(x))=F(x).$$
+En général, $F$ n’a pas d’inverse mais le résultat précédent reste
+vrai si on prend l’inverse généralisé (quantile) de $F$ : $$F^{-1}(u):=\min\{x\in \mathbb{R}:F(x)\geq u\}$$
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=13cm]{content/figfoncrep.PNG}
+
+\end{figure}
+
+\subsubsectionnn{Loi exponentielle}
+
+$Y:=-\frac{\log U}{\lambda}$ suit la loi exponentielle de paramètre $\lambda>0$\\
+
+En effet, $F(x)=1-\exp(-\lambda x)$ s'inverse en $F^{-1}(u)=-\frac{\log(1-u)}{\lambda}$ mais on observe que $1-U$ a même
+loi que $U$.
+
+\subsubsectionnn{Loi de Weibull}
+
+Utilisée en fiabilité et caractérisée par sa «fonction de survie» $G(x)=1-F(x)=\exp(-x^{a}), a>0 \text{ paramètre },x\geq 0$.
+\vspace{0.05cm}
+
+On écrit que $X\sim Weib(a)$.
+\vspace{0.5cm}
+
+On observe que $U$ et $1 − U$ ont même loi et on trouve facilement que $Y:=(-\log U)^{1/a}$ suit la loi $Weib(a)$.
+
+\subsubsectionnn{Loi de Cauchy $\mathcal{C}(a)$}
+C’est la loi de densité $f(x)=\frac{1}{\pi}\frac{a}{x^2+a^2}, a>0 \text{ paramètre }, x\in\mathbb{R}$.\\
+\vspace{0.05cm}
+
+$F(x)=\frac{1}{\pi} \arctan(\frac{x}{a})+\frac{1}{2}$\\
+\vspace{0.05cm}
+
+Étant donné $u \in ]0,1[$, on cherche $x$ tel que $F(x) = u$ : $$F(x)=u\iff x=a\tan(\pi(u-1/2)).$$
+Donc $Y:=a\tan(\pi(U-\frac{1}{2}))$ suit la loi de Cauchy de paramètre $a$.
+
+\subsubsectionnn{Résumé (lois usuelles)}
+
+$U\sim\mathcal{U}([0,1])$, $(U_i)$ suite de $v.a.i.i.d.$ suivant cette loi.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{||c | c||}
+\hline
+Loi                             &   Méthode de simulation\\
+\hline
+Bernoulli $\mathcal{B}(p)$              &   $\mathds{1}_{\{U\leq p\}}$\\
+\hline
+Binomiale $\mathcal{B}(n,p)$            &   $\sum_{i=1}^{n}\mathds{1}_{\{U_i\leq p\}}$\\
+\hline
+Géométrique $\mathcal{Gé}\text{éo}(p)$  &   $1+E\big(\frac{\log(U)}{\log(1-p)}\big)$\\
+\hline
+Poisson $\mathcal{P}(\lambda)$          &   $\inf\{n\in\mathbb{N}:U_1\times U_2\times\dots\times U_{n+1}\leq e^{-\lambda}\}$\\
+\hline
+Uniforme $\mathcal{U}([a,b]))$          &   $a+(b-a)U$\\
+\hline
+Exponentielle $\mathcal{E}(\lambda)$    &   $-\frac{1}{\lambda}\log(U)$\\
+\hline
+Cauchy $\mathcal{C}(a)$                 &   $a\tan(\pi(U-\frac{1}{2}))$\\
+\hline
+Normale $\mathcal{N}(\mu,\sigma^2)$     &   $\mu+\sigma\sqrt{-2\log(U_1)}\cos(2\pi U_2)$\\
+\hline
+\end{tabular}
+
+\end{table}
+
+\subsubsectionnn{Autres exemples:}
+\textbullet Si $X$ suit la loi de Laplace centrée réduite (loi «double
+exponentielle») :$$f(x)=\frac{1}{2}e^{-|x|},\quad\mathrm{     }\quad F(x)=\frac{1}{2}\big(1+\sign(x)(1-e^{-|x|})\big)$$
+elle a la même loi que $$Y=-\sign(U)\log(1-2|U|)\quad\mathrm{   \text{où}  }\quad U\sim\mathcal{U}([-0.5,0.5]).$$
+
+\textbullet Si $X$ suit la loi de Gumbel (centrée réduite) :
+$$f(x=e^{-(x+e^{-x})}), \quad\mathrm{     }\quad F(x)=e^{-e^{-x}}$$ elle a la même loi que
+$$Y=-\log(-\log(U))\quad\mathrm{   \text{où}  }\quad U\sim\mathcal{U}([0,1]).$$
+Cette loi sert pour décrire le maximum d’une série de données
+(par ex. niveau d’une rivière).
+
+\subsection{Illustration de la méthode d'inversion de la fonction de répartition}
+
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7.5cm]{content/foncrepexp.PNG}
+\caption{Loi exponentielle:\\$F(x)=(1-e^{-0.25x})\mathds{1}_{\mathbb{R}_{+}}(x)$\\$f(x)=0.25e^{-0.25x}$ }
+\end{figure}
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7.5cm]{content/lap.PNG}
+\caption{Loi de Laplace:\\$F(x)=0.5\big(1+\sign(x)(1-e^{-|x|})\big)$\\$f(x)=0.5e^{-|x|}$ }
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=7.5cm]{content/gumbel.PNG}
+\caption{Loi de Gumbel:\\$F(x)=e^{-e^{-x}}$\\$f(x)=e^{-(x+e^{-x})}$ }
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\iffalse
+\section{Loi d’une variable aléatoire à densité}\label{chap:2}
+Nous avons introduit le concept de fonctions de densité de probabilité et de masse de probabilité de variables aléatoires
+dans le chapitre précédent. Dans ce chapitre, nous introduisons des distributions de probabilité standard discrètes et
+continues communes qui sont largement utilisées pour des applications pratiques ou pour construire des méthodes
+statistiques. Supposons que nous soyons intéressés à déterminer la probabilité d'un certain événement. La détermination
+des probabilités dépend de la nature de l’étude et des diverses conditions qui l’affectent. Par exemple, la détermination
+de la probabilité d'une tête lors du lancement d'une pièce est différente de la détermination de la probabilité de pluie
+l'après-midi. On peut supposer que certaines fonctions mathématiques peuvent être définies qui décrivent le comportement
+des probabilités dans différentes situations. Ces fonctions ont des propriétés spéciales et décrivent comment les
+probabilités sont réparties dans différentes conditions. Nous avons déjà appris qu'elles sont appelées fonctions de
+distribution de probabilité. La forme de ces fonctions peut être simple ou compliquée selon la nature et la complexité du
+phénomène considéré. Rappelons d'abord et élargissons la définition des variables aléatoires indépendantes et
+identiquement distribuées:
+
+\theoremstyle{definition}
+\begin{definition}
+    Les variables aléatoires $X_1, X_2,\dots, X_n$ sont appelées indépendantes et identiquement distribuées (iid) si
+    les  $X_i (i = 1,2,\dots, n)$ ont la même fonction de répartition marginale $F (x)$ et si elles sont mutuellement
+    indépendantes.
+\end{definition}
+
+\begin{example}
+    Supposons qu'un chercheur planifie une enquête sur le poids des nouveau-nés dans un pays. Le chercheur contacte au
+    hasard $10$ hôpitaux avec une maternité et leur demande de sélectionner au hasard $20$ des nouveau-nés (pas de
+    jumeaux) nés au cours des $6$ derniers mois et enregistre leur poids. L'échantillon est donc composé
+    de $10 \times 20 = 200$ poids de bébé. Les hôpitaux et les bébés étant choisis au hasard, le poids des bébés n'est
+    donc pas connu à l'avance. Les $200$ poids peuvent être désignés par les variables aléatoires $X_1, X_2,\dots, X_{200}$.
+    Notez que les poids $X_i$ sont des variables aléatoires car, en fonction de la taille de la population, différents
+    échantillons constitués de $200$ bébés peuvent être sélectionnés au hasard. En outre, les poids des bébés peuvent
+    être considérés comme \textit{stochastiquement indépendants} (un exemple de poids dépendant stochastiquement serait
+    le poids des jumeaux s’ils sont inclus dans l’échantillon). Après avoir collecté les poids de $200$ bébés, le
+    chercheur dispose d'un échantillon de $200$ valeurs réalisées (c'est-à-dire les poids en grammes). Les valeurs
+    sont maintenant connues et désignées par $x_1, x_2,\dots, x_{200}$.
+\end{example}
+
+\subsection{Distributions discrètes standard}
+
+Tout d'abord, nous discutons de certaines distributions standard pour les variables aléatoires discrètes.
+
+\subsubsection{Loi uniforme discrète}
+
+La distribution uniforme discrète suppose que tous les résultats possibles ont une probabilité d'occurrence
+égale. Une définition plus formelle est donnée comme suit:
+
+\theoremstyle{definition}
+\begin{definition}
+    On dit qu'une variable aléatoire discrète $ X $ avec $ k $ résultats possibles $ x_1, x_2, ..., x_k $ suit une
+    distribution \textbf{uniforme} discrète si la fonction de masse de probabilité de $X$ est donnée par
+    \begin{equation}
+        P(X=x_i)=\frac{1}{k}, \forall i=1, 2,\dots,k.
+    \end{equation}
+\end{definition}
+Si les résultats sont les nombres naturels $ x_i = i (i = 1,2, ..., k) $, la moyenne et la variance de $ X $ sont
+obtenues comme
+\begin{align}
+    E(X) &= \frac{k+1}{2}\\
+    Var(X) &=\frac{1}{12}(k^2-1)
+\end{align}
+
+\begin{example}
+    Si nous lançons un dé non pipé, les résultats "1", "2",\dots, "6" ont une probabilité égale de se produire, et donc,
+    la variable aléatoire $X$ "nombre de points observés sur la surface supérieure du dé" a une distribution discrète
+    uniforme avec une fonction de masse
+    $$P(X=i)=\frac{1}{6}, \text{ pour tout } i=1,2,\dots,6.$$
+    La moyenne et la variance de $X$ sont
+    \begin{align*}
+        E(X) &=\frac{6+1}{2}=3.5,\\
+        Var(X) &=\frac{1}{12}(6^2-1)=35/12.
+    \end{align*}
+    \begin{SCfigure}[0.8][h]
+        \caption{Distribution de fréquence de $1000 $ nombres aléatoires uniformes
+discrets générés avec comme résultats possibles $ (2,5,8,10) $}
+        \label{fig:frecunif}
+        \includegraphics[width=0.4\textwidth]{content/frecunif.PNG}
+    \end{SCfigure}
+\end{example}
+En utilisant la fonction sample () dans R, il est facile de générer des nombres aléatoires à partir d'une distribution
+uniforme discrète. La commande suivante génère un échantillon aléatoire de taille 1000 à partir d'une distribution
+uniforme avec les quatre résultats possibles 2, 5, 8, 10 et trace un graphique à barres des nombres observés.
+L'utilisation de la fonction set.seed () permet de reproduire à tout moment les nombres aléatoires générés. Il est
+nécessaire d'utiliser l'option replace = TRUE pour simuler des tirages avec remplacement, c'est-à-dire pour garantir
+qu'une valeur puisse se produire plus d'une fois.
+
+\begin{verbatim}
+    set.seed(123789)
+    x <- sample(x=c(2,5,8,10), size=1000, replace=T,
+    prob=c(1/4,1/4,1/4,1/4))
+    barchart(table(x), ylim=c(0,300))
+\end{verbatim}
+
+Un diagramme à barres de la distribution de fréquence des 1000 nombres échantillonnés avec les résultats possibles
+(2, 5, 8, 10) en utilisant la distribution uniforme discrète est donné à la Fig. \ref{fig:frecunif}. Nous voyons que les 1000 nombres
+aléatoires générés ne sont pas exactement uniformément distribués, par ex. les nombres 5 et 10 se produisent plus
+souvent que les nombres 2 et 8. En fait, ils ne sont qu'approximativement uniformes. Nous nous attendons à ce que
+l'écart par rapport à une distribution uniforme parfaite diminue à mesure que nous générons de plus en plus de nombres
+aléatoires, mais ne sera probablement jamais nul pour un nombre fini de tirages. Les nombres aléatoires reflètent la
+situation pratique selon laquelle une distribution d'échantillon n'est qu'une approximation de la distribution
+théorique à partir de laquelle l'échantillon a été tiré.
+
+\subsubsection{Distribution dégénérée}
+
+\theoremstyle{definition}
+\begin{definition}
+    Une variable aléatoire $ X $ a une distribution dégénérée à $ a $, si $ a $ est le seul résultat possible
+    avec $ P (X = a) = 1 $. La fonction de répartition dans un tel cas est donnée par
+    $$F(x) = \begin{cases} 0 & \mbox{si   } x<a\\ 1 & \mbox{si } x\geq a.\end{cases}$$
+\end{definition}
+De plus, $E (X) = a$ et $Var (X) = 0$.\\
+La distribution dégénérée indique qu'il n'y a qu'un seul résultat fixe possible, et donc, aucun hasard n'est impliqué.
+Il s'ensuit que nous avons besoin d'au moins deux résultats possibles différents pour avoir un caractère aléatoire
+dans les observations d'une variable aléatoire ou d'une expérience aléatoire. La distribution de Bernoulli est une
+telle distribution où il n'y a que deux résultats, par ex. succès et échec ou masculin et féminin. Ces résultats sont
+généralement désignés par les valeurs «0» et «1».
+
+\subsubsection{La distribution de Bernoulli}
+
+\theoremstyle{definition}
+\begin{definition}
+    Une variable aléatoire $ X $ a une distribution de Bernoulli si la fonction de masse de X est donnée comme
+    $$P(X=x) = \begin{cases} p & \mbox{si   } x=1\\ 1-p & \mbox{si } x=0.\end{cases}$$
+\end{definition}
+La fonction de répartition de $X$est:
+
+$$F(x) = \begin{cases} 0 & \mbox{si   } x<0\\ 1-p & \mbox{si } 0\leq x<1\\1 & \mbox{si   } x\geq 1.\end{cases}$$
+
+La moyenne (espérance) et la variance d'une variable aléatoire de Bernoulli sont calculées comme suit:
+\begin{equation}\label{eq:esp}
+    E(X)=1.p+0.(1-p)=p
+\end{equation}
+
+\begin{equation}\label{eq:var}
+    Var(X)=(1-p)^2.p+(0-p)^2.(1-p)=p(1-p),
+\end{equation}
+respectivement.\\
+
+Une distribution de Bernoulli est utile lorsqu'il n'y a que deux résultats possibles, et notre intérêt réside dans
+l'un des deux résultats, par ex. si un client achète un certain produit ou non, ou si un ouragan frappe une île ou
+non. Le résultat d'un événement $ A $ est généralement codé comme $ 1 $, ce qui se produit avec la probabilité $ p $.
+Si l'événement d'intérêt ne se produit pas, c'est-à-dire que l'événement complémentaire $\bar{A}$ se produit, le
+résultat est codé comme $ 0 $, ce qui se produit avec la probabilité $ 1 - p $. Donc $ p $ est la probabilité que
+l'événement d'intérêt $ A $ se produise.
+
+\begin{example}
+    Une entreprise organise un tirage au sort à la fin de l'année. Il y a au total $300$ billets de loterie, et
+    $50$ d'entre eux sont marqués comme des billets gagnants. L'événement $ A $ d'intérêt est le «ticket gagne»
+    (codé $ X = 1 $), et la probabilité $ p $ d'avoir un ticket gagnant est a priori (c'est-à-dire avant qu'un ticket
+    de loterie soit tiré)
+    \begin{equation*}
+        P(X=1)=\frac{50}{300}=\frac{1}{6}=p
+        \quad\mathrm{  et }\quad
+        P(X=0)=\frac{250}{300}=\frac{5}{6}=1-p.
+    \end{equation*}
+    Selon (\ref{eq:esp}) et (\ref{eq:var}), la moyenne (espérance) et la variance de $ X $ sont
+    \begin{equation*}
+        E(X)=\frac{1}{6}
+        \quad\mathrm{  et }\quad
+        Var(X)=\frac{1}{6} . \frac{5}{6}=\frac{5}{36} \text{  respectivement.}
+    \end{equation*}
+\end{example}
+
+\subsubsection{Distribution binomiale}
+
+Considérons $ n $ essais indépendants ou répétitions d'une expérience de Bernoulli. Dans chaque essai ou répétition,
+nous pouvons observer $ A $ ou $ \bar{A} $. A la fin de l'expérience, nous avons ainsi observé $ A $ entre $ 0 $ et
+$ n $ fois. Supposons que nous nous intéressions à la probabilité que $ A $ se produise $ k $ fois, alors la
+distribution binomiale est utile.
+
+\begin{example}
+    Considérons une expérience de lancer de pièces où une pièce est lancée dix fois et l'événement d'intérêt est
+    $ A =$ «face» . La variable aléatoire $ X $ "nombre de face dans $ 10 $ expériences" a les résultats possibles
+    $ k = 0,1, ..., 10 $. Une question d'intérêt peut être: Quelle est la probabilité qu'un visage se produise dans
+    $7$ des $10$ essais; ou dans $5$ essais sur $10$? Nous supposons que l'ordre dans lequel les faces (et les piles)
+    apparaissent n'est pas intéressant, seul le nombre total de face est intéressant.
+\end{example}
+
+La distribution binomiale répond à ces questions. Cette distribution peut être motivée soit par une répétition
+d'expériences de Bernoulli $ n $ (comme dans l'exemple de lancer de pièces ci-dessus), soit par le modèle de
+l'urne: supposons qu'il y ait des boules blanches $ M $ et $ N - M $ noires dans l'urne. Supposons que n balles soient
+tirées au hasard de l'urne, la couleur de la balle est enregistrée et la balle est replacée dans l'urne
+(échantillonnage avec remise). Soit $ A $ l'événement auquel une boule blanche est tirée de l'urne. La probabilité
+de $ A $ est $ p = M / N $ (la probabilité de tirer une boule noire est $ 1 - p = (N - M) / N) $. Puisque les balles
+sont tirées avec remplacement, ces probabilités ne changent pas d'un tirage à l'autre. De plus, soit $ X $  la variable
+aléatoire comptant le nombre de boules blanches tirées de l'urne dans les expériences $ n $. Puisque l'ordre des
+couleurs résultantes des boules n'est pas intéressant dans ce cas, il existe des combinaisons $\binom{n}{k} $ où $ k $
+boules sont blanches et $ n - k $ boules  sont noires. Puisque les boules sont tirées avec remplacement, chaque
+résultat des  $ n $ expériences est indépendant de tous les autres. La probabilité que $ X = k, k = 0,1, ..., n $,
+puisse donc être calculée comme
+
+\begin{equation}\label{eq:binomial}
+P(X=k)=\binom{n}{k}p^k(1-p)^{n-k} \quad\mathrm{   }\quad (k=0,1,\dots,n).
+\end{equation}
+
+Veuillez noter que nous pouvons utiliser le produit $ p^k(1-p)^{n-k} $ car les tirages sont indépendants.
+Le coefficient binomial $ \binom{n}{k} $ est nécessaire pour compter le nombre d'ordres possibles des boules noires
+et blanches.
+
+\theoremstyle{definition}
+\begin{definition}
+    On dit qu'une variable aléatoire discrète $X$ suit une distribution binomiale de paramètres $ n $ et $ p $ si
+    sa fonction de masse est donnée par (\ref{eq:binomial}). Nous écrivons également $ X \sim B (n; p) $. \\
+    La moyenne et la variance d'une variable aléatoire binomiale $X$ sont données par
+    \begin{align}
+        E(X) &= np,\\
+        V(X) &= np(1-p).
+    \end{align}
+\end{definition}
+
+\begin{remark}
+    Une variable aléatoire de Bernoulli est donc $B(1; p)$ distribuée.
+\end{remark}
+
+\begin{example}\label{ex:2.5}
+    Supposons que nous lançons un dé pipé $50$ fois avec la probabilité de pile $p_ {pile} = 0,6$.
+    Nous avons donc affaire à une distribution $B(50,0.6)$ qui peut être tracée à l'aide de la commande \emph{dbinom}.
+    Le préfixe \mathcal{d} signifie «densité».
+
+
+\begin{SCfigure}[0.8][h]
+    \caption{fonction de masse d'une distribution $B(50, 0.6)$}
+    \label{fig:binomplot}
+    \includegraphics[width=0.4\textwidth]{content/binomplot.PNG}
+\end{SCfigure}
+
+\begin{verbatim}
+    n <- 50
+    p <- 0.6
+    k <- 0:n
+    pmf <- dbinom(k,n,p)
+    plot(k,pmf, type=h)
+\end{verbatim}
+
+    Un tracé de la fonction de masse d'une distribution binomiale avec $ n = 50 $ et $ p = 0,6 $
+    (c'est-à-dire $ B (50,0,6) $) est donné sur la Figure \ref{fig:binomplot}.\\
+    Notons que nous pouvons également calculer la fonction de répartition avec $ R $. Nous pouvons utiliser la
+    commande \textit {pbinom (x, n, p)}, où le préfixe $ p $ signifie probabilité, pour calculer la fonction de
+    répartition à tout point. Par exemple, supposons que nous nous intéressions à $ P (X \geq 30) = 1 - F (29) $,
+    c'est-à-dire la probabilité d'observer trente piles ou plus; puis on écrit
+
+    \begin{verbatim}
+        1-pbinom(29,50,0.6)
+        [1] 0.5610349
+    \end{verbatim}
+
+De même, nous pouvons déterminer des quantiles. Par exemple, le $ 80\% $ quantile $ q $ qui décrit
+    que $ P (X \leq q) ≥ 0,8 $ peut être obtenu par la commande \textit {qbinom(q, n, p)} comme suit:
+\begin{verbatim}
+    qbinom(0.8,50,0.6)
+    [1] 33
+\end{verbatim}
+    Si nous voulons générer $ 100 $ réalisations aléatoires  à partir d'une distribution $ B (50,0.6) $,
+    nous pouvons utiliser la commande \textit{rbinom}.
+    \begin{verbatim}
+        rbinom(100,50,0.6)
+    \end{verbatim}
+\end{example}
+La distribution binomiale a de belles propriétés. L'une d'elles est décrit dans le théorème suivant:
+\theoremstyle{theorem}
+\begin{theorem}
+    Soit $ X \sim B (n; p) $ et $ Y \sim B (m; p) $ et supposons que $ X $ et $ Y $ sont (stochastiquement)
+    indépendants. Alors
+    \begin{equation}
+        X+Y\sim B(n+m;p).
+    \end{equation}
+\end{theorem}
+Ceci est intuitivement clair puisque nous pouvons interpréter ce théorème comme décrivant la combinaison additive
+de deux expériences binomiales indépendantes avec $ n$ et $m$ essais, avec une probabilité égale $ p $, respectivement.
+Puisque chaque expérience binomiale est une série d'expériences Bernoulli indépendantes, cela équivaut à une série
+d'essais Bernoulli indépendants $ n + m $ avec une probabilité de succès constante $ p $ qui à son tour équivaut à
+une distribution binomiale avec  $ n + m $ essais
+
+\subsubsection{Distribution de Poisson}
+Considérons une situation dans laquelle le nombre d'événements est très élevé et la probabilité de succès est
+très faible: par exemple, le nombre de particules alpha émises par une substance radioactive entrant dans une
+région particulière dans un court intervalle de temps donné. Notez que le nombre de particules alpha émises est
+très élevé mais seules quelques particules sont transmises à travers la région dans un court intervalle de temps
+donné. Quelques autres exemples où les distributions de Poisson sont utiles sont le nombre de cas de grippe dans un
+pays en un an, le nombre de tempêtes tropicales dans une zone donnée en un an, ou le nombre de bactéries trouvées dans
+une enquête biologique
+
+\theoremstyle{definition}
+\begin{definition}
+    On dit qu'une variable aléatoire discrète $ X $ suit une distribution de Poisson de paramètre
+    $ \lambda> 0 $ si sa fonction de masse est donnée par
+    \begin{equation}\label{eq:26}
+        P(X=x)=\frac{\lambda^x}{x!}\exp(-\lambda) \quad\mathrm{    }\quad   (x=0,1,2,\dots).
+    \end{equation}
+\end{definition}
+Nous écrivons également $ X \sim Po(\lambda) $. La moyenne et la variance d'une variable aléatoire de Poisson
+sont identiques:
+$$E(X)=Var(X)=\lambda.$$
+
+\begin{example}
+    Supposons qu'un pays subisse en moyenne X $ = 4 $ tempêtes tropicales par an. Ensuite, la probabilité de
+    souffrir de seulement deux tempêtes tropicales est obtenue en utilisant la distribution de Poisson comme
+
+    $$P(X=2)=\frac{\lambda^x}{x!}\exp(-\lambda)=\frac{4^2}{2!}\exp(-4)=0.146525$$
+
+    Si nous sommes intéressés par la probabilité que pas plus de $2$ tempêtes soient subies, alors nous pouvons
+    appliquer les règles (\ref{sub-eq-1:8})-(\ref{sub-eq-1:14}) du Chap. \ref{chap:1}:
+    $P (X \leq 2) = P (X = 2) + P (X = 1) + P (X = 0) = F (2) = 0,2381033$.
+    Nous pouvons calculer $P (X = 1)$ et $P (X = 0)$ à partir de (\ref{eq:26}) ou en utilisant $R$. Semblable à
+    l'exemple \ref{ex:2.5}, nous utilisons le préfixe $d$ pour obtenir la fonction de masse  et le préfixe $p$
+    pour travailler avec la fonction de répartition, c'est-à-dire que nous pouvons utiliser \emph{dpois(x, \lambda)}
+    et $  ppois(x, \lambda)$
+    pour déterminer $P (X = x)$ et $P(X \leq x)$, respectivement.
+
+    \begin{verbatim}
+        dpois(2,4) + dpois(1,4) + dpois(0,4)
+        [1] 0.2381033
+        ppois(2,4)
+        [1] 0.2381033
+    \end{verbatim}
+\end{example}
+
+\subsubsection{Distribution géométrique}
+
+Considérons une situation dans laquelle nous souhaitons déterminer combien d'essais Bernoulli indépendants sont
+nécessaires jusqu'à ce que l'événement d'intérêt se produise pour la première fois. Par exemple, nous pouvons être
+intéressés par le nombre de billets à acheter dans une tombola jusqu'à ce que nous gagnions pour la première fois, ou
+le nombre de médicaments différents pour tenter de lutter avec succès contre une migraine sévère, etc. La distribution
+géométrique peut être utilisée pour déterminer la probabilité que l'événement d'intérêt se produit au $k$ième procès
+pour la première fois.
+
+\theoremstyle{definition}
+\begin{definition}
+    On dit qu'une variable aléatoire discrète $X$ suit une distribution géométrique de paramètre $p$ si sa
+    fonction de masse est donnée par
+    \begin{equation}\label{eq:27}
+        P(x=k)=p(1-p)^{k-1} \quad\mathrm{  ,  }\quad k=1,2,3,\dots
+    \end{equation}
+\end{definition}
+La moyenne (espérance) et la variance sont respectivement données par $E (X) = 1/p$ et $Var (X) = 1/p (1/p  -  1)$.
+\begin{example}
+Prenons une expérience où une pièce est lancée jusqu'à ce que  «face» soit obtenue pour la première fois.
+La probabilité d'obtenir face est de $p = 0,5$ pour chaque lancer. En utilisant (\ref{eq:27}),
+nous pouvons déterminer les probabilités suivantes:
+    \begin{align*}
+        P(X=1) &=0.5\\
+        P(X=2) &=0.5(1-0.5)=0.25\\
+        P(X=3) &=0.5(1-0.5)^2=0.125\\
+        P(X=4) &=0.5(1-0.5)^3=0.0625\\
+        \text{       }\dots \text{    }  \dots
+    \end{align*}
+\end{example}
+En utilisant $R$, nous pouvons déterminer la dernière probabilité de $P(X = 4)$ comme suit:
+\begin{verbatim}
+    dgeom(3,0.5)
+\end{verbatim}
+Notez que la définition de $X$ dans $R$ diffère légèrement de notre définition. Dans $R$, $k$ est le nombre d'échecs
+avant le premier succès. Cela signifie que nous devons spécifier $k - 1$ dans la fonction \emph{dgeom} plutôt que $k$.
+La moyenne et la variance de ce paramétrage sont
+$$E(X)=\frac{1}{0.5}=2\quad\mathrm{;    }\quad Var(X)=\frac{1}{0.5}\bigg(\frac{1}{0.5}-1\bigg) =2.     $$
+
+\subsection{Distributions continues standard}
+
+Maintenant, nous discutons de certaines distributions de probabilité standard de variables aléatoires (absolument)
+continues. Les caractéristiques des variables aléatoires continues sont que le nombre de résultats possibles est
+infiniment infini et qu’elles ont une fonction de distribution continue $F(x)$. Il s'ensuit que les probabilités
+ponctuelles sont nulles, c'est-à-dire $P(X = x) = 0$. De plus, nous supposons qu'il existe une fonction de densité
+unique $f$, telle que $F(x)= \int_{-\infty}^{x}f(t)dt$.
+
+\subsubsection{Distribution uniforme continue}
+
+Un analogue continu de la distribution uniforme discrète est la distribution uniforme continue sur un intervalle
+fermé dans $\mathbb{R} $.
+
+\theoremstyle{definition}
+\begin{definition}
+    On dit qu'une variable aléatoire continue X suit une distribution uniforme (continue) dans l'intervalle $[a, b]$,
+    c'est-à-dire $X \sim U(a,b)$,  si sa fonction de densité de probabilité est donnée par
+
+    $$f(x) = \begin{cases} \frac{1}{b-a} & \mbox{si   } a\leq x\leq b\quad\mathrm{   }\quad (a<b)\\
+                            0 & \mbox{sinon. }\end{cases}$$
+
+\end{definition}
+La moyenne est la variance de $X\sim U(a,b)$ sont
+$$E(X)=\frac{a+b}{2} \quad\mathrm{ et }\quad Var(X)=\frac{(b-a)^2}{12},$$ respectivement.
+
+\begin{example}
+    Supposons qu'un train arrive régulièrement dans une station de métro toutes les 10 minutes. Si un passager arrive
+    à la gare sans connaître l'horaire, le temps d'attente pour prendre le train est uniformément réparti avec la
+    densité
+    $$f(x) = \begin{cases} \frac{1}{10} & \mbox{si   } 0\leq x\leq 10\\
+    0 & \mbox{sinon. }\end{cases}$$
+    Le temps d'attente «moyen» est $E(X) = (10 + 0)/2 = 5 min$. La probabilité d'attendre le train pendant moins
+    de $3min$ est évidemment de $0,3$ (ou $30\%$) qui peut être calculée dans R à l'aide de la
+    commande $punif(x, a, b)$
+    \begin{verbatim}
+        punif(3,0,10)
+    \end{verbatim}
+\end{example}
+
+\subsubsection{Distribution normale}
+La distribution normale est l'une des distributions les plus importantes utilisées en statistique. Le nom a été donné
+par Carl Friedrich Gauss (1777–1855), un mathématicien, astronome, géodésiste et physicien allemand qui a observé que
+les mesures en géodésie et en astronomie s'écartent de manière aléatoire et symétrique de leurs vraies valeurs.
+La distribution normale est donc aussi souvent appelée distribution gaussienne.
+
+\theoremstyle{definition}
+\begin{definition}
+    On dit qu'une variable aléatoire $X$ suit une distribution normale de paramètres $\mu$ et $\sigma^2$ si sa
+    densité de probabilité est donnée par
+    \begin{equation}\label{eq:gauss}
+        f(x)=\frac{1}{\sigma\sqrt{2\pi}}\bigg(-\frac{(x-\mu)^2}{2\sigma^2}\bigg); \quad\mathrm{   }\quad
+        -\infty<x<\infty,-\infty<\mu<\infty,\sigma^2>0.
+    \end{equation}
+\end{definition}
+On écrit $X\sim N(\mu,\sigma^2)$. La moyenne et la variance de $X$ sont
+$$E(X)=\mu;\quad\mathrm{  et }\quad Var(X) =\sigma^2$$ respectivement. si $\mu=0$ et $\sigma^2=1$, alors $X$ suit une
+\textbf{loi normale centrée réduite}(loi normale standard), $X\sim N(0,1)$. La densité de probabilité d'une
+distribution normale standard est donnée par $$\phi(x)=\frac{1}{\sqrt{2\pi}}\exp(-\frac{x^2}{2});\quad\mathrm{   }\quad
+-\infty<x<\infty.$$
+
+La densité d'une distribution normale a son maximum (voir Fig. \ref{fig:pdfgauss} ) à $x = \mu$. La densité est également symétrique
+autour de $\mu$. Les points d'inflexion de la densité sont à $(\mu - \sigma)$ et $(\mu + \sigma)$ (Fig. \ref{fig:pdfgauss}).
+Un $\sigma$ inférieur indique une concentration plus élevée autour de la moyenne $\mu$. Un $\sigma$ plus élevé
+indique une densité plus plate (Fig. \ref{fig:pdfsgauss} ).\\
+La fonction de répartition de $X\sim N(\mu,\sigma^2)$ est
+\begin{equation}\label{eq:frgauss}
+    F(x)=\int_{-\infty}^{x}\phi(t)dt
+\end{equation}
+qui est souvent désignée par $\Phi(x)$. La valeur de $\Phi(x)$ pour différentes valeurs de x peut être obtenue avec $R$.
+Par exemple,
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{content/pdfgauss}
+    \caption{Densité de probabilité d'une distribution normale}
+    \label{fig:pdfgauss}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\textwidth]{content/pdfsgauss}
+    \caption{Densité de probabilité des distributions $N(0;2)$, $N(0;1)$ et $N(0;0.5)$}
+    \label{fig:pdfsgauss}
+\end{figure}
+
+\begin{verbatim}
+    pnorm(1.96, mean = 0, sd = 1)
+\end{verbatim}
+calcule $\Phi(1,96)$ comme environ $0,975$. Cela signifie, pour une distribution normale standard, la
+probabilité $P(X ≤ 1,96) \approx 0,975$.
+
+\begin{remark}
+    Il n'y a pas de formule explicite pour résoudre l'intégrale dans l'équation. (\ref{eq:frgauss}).
+    elle doit être résolue par des méthodes numériques (ou informatiques). C'est la raison pour laquelle les
+    tableaux de fonction de répartition sont présentés dans presque tous les manuels de Statistiques.
+\end{remark}
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris vel nunc ultricies, lobortis leo a, mattis sapien. Duis nec sapien a diam sollicitudin consectetur. Etiam magna lorem, vulputate at fermentum sed, hendrerit nec metus. Integer ut nunc elit. Cras tristique finibus porttitor. Aliquam fringilla ipsum eget condimentum vehicula. Sed ac tellus ac erat sagittis ullamcorper quis a leo. Nulla sed elit tincidunt, posuere velit sed, fringilla quam. Praesent facilisis eros nec leo luctus, in mattis quam rhoncus.
+
+Phasellus lorem erat, aliquet at dapibus in, egestas at justo. Cras a lectus eget libero faucibus cursus. Nulla et facilisis dui. In orci odio, faucibus a ultricies eu, finibus ut massa. Praesent ac sem volutpat, tempor risus quis, aliquet turpis. In hac habitasse platea dictumst. Vestibulum laoreet, justo id semper eleifend, augue dui molestie ligula, id varius erat mi a quam. Etiam cursus, justo ac lobortis viverra, nibh neque faucibus nibh, ut laoreet nulla ligula quis neque. Nam ornare felis nisi, sit amet vulputate lorem varius at. Vestibulum tincidunt, ex eget finibus pulvinar, magna sapien convallis ante, quis mollis nisl ex ac mi. Etiam vestibulum dui a lorem vulputate, et cursus mauris dictum. Donec porta molestie tincidunt. Proin euismod libero turpis, sed iaculis magna posuere nec. Ut non dolor nisl. Donec a tellus pulvinar, luctus dolor vel, ultrices sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+\subsection{Subsection 1}
+
+Cras commodo, elit at fermentum tincidunt, velit urna feugiat leo, in varius est magna in lectus. Curabitur sodales, libero et dapibus placerat, dolor arcu egestas lectus, accumsan mattis orci ante et est. Etiam maximus maximus ante vitae elementum. Praesent volutpat mauris eget sapien pretium, a consequat mi mattis. Phasellus ac lobortis odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aliquam erat volutpat. Vestibulum tincidunt tristique semper.
+
+Nullam faucibus eu risus nec accumsan. In vitae augue rhoncus, iaculis nunc non, dapibus massa. In laoreet quis ante ac porta. Morbi eget lorem scelerisque, accumsan felis sit amet, cursus nisl. Etiam vitae orci tristique, sollicitudin odio in, varius metus. Nullam massa risus, molestie eget dictum mattis, placerat vel risus. Aenean consequat tristique libero ac rutrum. Integer fringilla facilisis felis, non accumsan erat accumsan a. Nunc vitae lorem id ligula dapibus convallis at ut nisl. Mauris consectetur urna quam, nec egestas erat suscipit in.
+
+\subsection{Subsection 2}
+
+Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec et maximus dui. Proin bibendum dolor turpis, nec eleifend purus pharetra in. Cras mattis, nisl sit amet varius suscipit, dolor eros imperdiet risus, et blandit arcu tellus eget nunc. Vivamus eu nibh vitae lectus tristique ullamcorper quis in odio. Sed non enim sit amet lacus porta tincidunt. Ut eget facilisis eros, et eleifend nisl. In tincidunt mattis tellus in varius. Sed felis eros, sollicitudin eget purus ultrices, tempor malesuada est. Ut egestas erat et velit tempor viverra. Aenean quis imperdiet nisi. Aliquam varius vestibulum nibh sit amet euismod. Duis massa lectus, efficitur vitae porttitor id, sodales nec quam. Suspendisse aliquet mattis metus, ac dignissim nulla ultricies in. Nulla a commodo orci.
+
+Mauris vitae libero odio. Praesent nec eros sem. Ut aliquet vestibulum lorem ac venenatis. Maecenas feugiat, est at suscipit luctus, velit purus laoreet mauris, eu pharetra eros neque a lacus. Duis cursus quis purus ac accumsan. Praesent ullamcorper porta libero, quis ultrices enim porttitor sollicitudin. Interdum et malesuada fames ac ante ipsum primis in faucibus. Maecenas non euismod purus, ac suscipit nibh. Donec in massa aliquet, vestibulum libero eu, fermentum sapien. Mauris consequat imperdiet eros ut elementum. Nulla euismod, enim id malesuada gravida, purus lectus imperdiet nibh, sit amet ullamcorper metus nunc nec nulla. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris eu mauris sit amet diam suscipit venenatis. Vestibulum ut leo ac metus fermentum porttitor. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+
+\subsection{Subsection 3}
+
+Proin gravida eros id faucibus sollicitudin. Vivamus molestie, nisi nec blandit viverra, eros arcu porttitor nibh, a vestibulum est urna ut mi. Donec vel nisl vitae odio ullamcorper tempor eu eu libero. Nullam sem nisi, varius ut nunc vel, luctus cursus dui. Proin cursus euismod sem tincidunt dignissim. Suspendisse volutpat arcu eu scelerisque facilisis. Donec id ultricies sem. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;
+
+Donec at elit vehicula, varius nisl ac, malesuada ante. Mauris ut iaculis enim. Quisque faucibus nibh id dui hendrerit sagittis. Suspendisse non mauris a purus aliquet iaculis. Aliquam erat volutpat. Vestibulum augue sem, pretium quis dapibus sit amet, pretium sed urna. Donec at lectus dui. Ut imperdiet augue eget odio vehicula ullamcorper. Maecenas sed enim quis nunc porttitor eleifend. Aenean et mollis nibh. Integer id posuere odio. Sed et porttitor metus, a semper mi. Mauris egestas odio in posuere mollis. Praesent pellentesque, dolor nec aliquam dictum, ex lectus cursus sapien, vehicula ornare urna ipsum non massa.
+
+\subsection{Subsection 4}
+
+Quisque ut risus neque. Praesent iaculis finibus porttitor. Sed rutrum diam eget gravida imperdiet. Sed at ex velit. Ut ut dictum sem. Pellentesque a tincidunt lorem. Sed tincidunt metus nec auctor semper. Phasellus vestibulum auctor justo a pretium. Nam eu tincidunt dui, at scelerisque ante. Phasellus dapibus lacus at tempus pellentesque.
+
+Vivamus mattis porta mi iaculis sagittis. Aenean sit amet rutrum nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque quis libero imperdiet, consectetur felis sed, venenatis augue. Nulla tempor rutrum viverra. Proin non dictum urna. Mauris mattis finibus neque, quis tincidunt libero vulputate eu. Praesent lobortis fermentum faucibus. Donec eget neque eu enim aliquam mattis. Praesent a eleifend ante. Suspendisse auctor enim sit amet malesuada malesuada. Aenean molestie lacus sed velit ornare malesuada. Nam sagittis pretium interdum.
+\fi
